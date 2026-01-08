@@ -2,6 +2,8 @@
 
 An Excel add-in that converts selected cells to Kusto datatable syntax.
 
+<img src="docs/screenshot.png" alt="Excel to Kusto Datatable screenshot" width="600">
+
 This add-in is not published to the Office Add-ins Store, so it won't appear when you browse for
 add-ins in Excel. Instead, you'll need to "sideload" it manually using a trusted catalog. This is a
 one-time setup process that takes just a few minutes. You do not need to run a local server because

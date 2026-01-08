@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_run:
-    workflows: ["Lint", "Spell Check", "GitHub Actions Security Analysis with zizmor"]
+    workflows: ["Lint", "Spell Check", "Zizmor"]
     types:
       - completed
     branches:

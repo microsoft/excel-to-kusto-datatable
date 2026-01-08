@@ -6,12 +6,10 @@ An Excel add-in that converts selected cells to Kusto datatable syntax.
 
 ### Sideloading the Add-in
 
-1. Save `manifest.xml` to a local folder (e.g., `C:\ExcelAddins\`)
-2. Share that folder on your network
-3. In Excel: **File → Options → Trust Center → Trust Center Settings**
-4. Go to **Trusted Add-in Catalogs** → Add your network share path
-5. Restart Excel
-6. **Insert → My Add-ins → Shared Folder** → Select the add-in
+1. In Excel: **File → Options → Trust Center → Trust Center Settings**
+2. Go to **Trusted Add-in Catalogs** → Add `https://microsoft.github.io/excel-to-kusto-datatable/`
+3. Restart Excel
+4. **Insert → My Add-ins → Shared Folder** → Select the add-in
 
 ### Usage
 

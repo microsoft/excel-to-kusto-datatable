@@ -41,6 +41,25 @@ npm run dev
 npm test
 ```
 
+### Local Development Setup
+
+This project has two manifest files:
+
+| File | Purpose | URLs Point To |
+|------|---------|---------------|
+| `manifest.xml` | Production (for users) | `microsoft.github.io/excel-to-kusto-datatable/` |
+| `manifest.local.xml` | Development (for contributors) | `localhost:3000` |
+
+**To test locally:**
+
+1. Run `npm run dev` to start the local dev server at `https://localhost:3000`
+2. Sideload **`manifest.local.xml`** into Excel (not `manifest.xml`)
+3. The add-in will appear as "Kusto Datatable (Local)" to distinguish it from the production version
+
+**Sideloading instructions:** https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-office-add-ins-for-testing
+
+> **Note:** Always use `manifest.local.xml` for development. The production `manifest.xml` points to GitHub Pages and won't reflect your local changes.
+
 ### Project Structure
 
 ```

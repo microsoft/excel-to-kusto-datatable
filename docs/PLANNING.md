@@ -329,11 +329,11 @@ npm run dev
 ### Phase 5: GitHub Deployment
 **Goal**: Live add-in hosted on GitHub Pages
 
-- [ ] Configure GitHub Pages on repository
-- [ ] Set up GitHub Actions workflow for auto-build
-- [ ] Create production manifest.xml with GitHub Pages URL
-- [ ] Write README with installation instructions
-- [ ] Test fresh install on different machine
+- [x] Configure GitHub Pages on repository
+- [x] Set up GitHub Actions workflow for auto-build
+- [x] Create production manifest.xml with GitHub Pages URL
+- [x] Write README with installation instructions
+- [x] Test fresh install on different machine
 
 **Verify**:
 1. Push to main → GitHub Actions builds successfully

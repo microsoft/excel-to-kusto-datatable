@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LOCAL DEVELOPMENT MANIFEST
+  Use this manifest for local development and testing.
+  Sideload this file instead of manifest.xml when running locally.
+  
+  Start the dev server with: npm run dev
+  Then sideload this manifest into Excel.
+-->
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
@@ -10,10 +18,10 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Kusto Datatable Converter</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Kusto Datatable"/>
+  <DisplayName DefaultValue="Kusto Datatable (Local)"/>
   <Description DefaultValue="Convert Excel cells to Kusto datatable syntax"/>
-  <IconUrl DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/assets/icon-64.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://github.com/microsoft/excel-to-kusto-datatable"/>
 
   <!-- Hosts this add-in supports -->
@@ -30,7 +38,7 @@
 
   <!-- Default settings (fallback for older hosts) -->
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/taskpane.html"/>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
   </DefaultSettings>
 
   <!-- Permissions -->
@@ -80,12 +88,12 @@
     <!-- Resources referenced above -->
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/assets/icon-80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://microsoft.github.io/excel-to-kusto-datatable/taskpane.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Kusto"/>

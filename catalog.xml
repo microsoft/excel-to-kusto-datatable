@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<OfficeAppList xmlns="http://schemas.microsoft.com/office/2013/applist">
-  <App>
-    <Id>a1b2c3d4-e5f6-7890-abcd-ef1234567890</Id>
-    <Version>1.0.0.0</Version>
-    <Title>Kusto Datatable</Title>
-    <OfficeAppUrl>https://microsoft.github.io/excel-to-kusto-datatable/manifest.xml</OfficeAppUrl>
-  </App>
-</OfficeAppList>

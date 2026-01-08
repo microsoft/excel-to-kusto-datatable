@@ -22,10 +22,13 @@ Office on the web), see the official Microsoft documentation on
 [Sideloading Office Add-ins](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-office-add-ins-for-testing).
 
 1. Download the [manifest.xml](https://microsoft.github.io/excel-to-kusto-datatable/manifest.xml) to
-   your machine
-2. Create a network share folder and place the manifest file in it
+   your machine in a folder like c:\ExcelAddins
+2. From Windows Explorer, right click on the ExcelAddins folder and select **Give Access To →
+   Specific People** to create a network share for yourself. Note the network share path (e.g.,
+   `\\localhost\ExcelAddins`)
 3. In Excel: **File → Options → Trust Center → Trust Center Settings**
 4. Go to **Trusted Add-in Catalogs** → Add the network share path (e.g., `\\localhost\ExcelAddins`)
+   and check the box for "Show in Menu"
 5. Restart Excel
 6. Go to **Home → Add-ins → Advanced** → Select the add-in
 7. Verify that the add-in button appears in the **Data** tab under the **Kusto** group

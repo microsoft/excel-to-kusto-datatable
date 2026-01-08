@@ -1,0 +1,220 @@
+/* Task Pane Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+#app {
+    padding: 20px;
+    max-width: 100%;
+}
+
+header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0078d4;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#status {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Primary button styling */
+.primary-btn {
+    padding: 10px 20px;
+    background-color: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background-color: #106ebe;
+}
+
+.primary-btn:disabled {
+    background-color: #c8c8c8;
+    cursor: not-allowed;
+}
+
+/* Output section */
+#output-section {
+    margin-top: 10px;
+}
+
+#output-section h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+#output {
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Options section with checkbox */
+.options-section {
+    margin-bottom: 5px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Column mapping section */
+#column-mapping-section {
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#column-mapping-section h2 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+#column-mapping-section > .hint {
+    font-size: 11px;
+    color: #666;
+    margin: 0 0 12px 0;
+}
+
+#column-mappings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.column-mapping-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.column-mapping-row .column-name {
+    flex: 1;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 13px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.column-mapping-row select {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: "Consolas", "Courier New", monospace;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.column-mapping-row select:focus {
+    outline: none;
+    border-color: #0078d4;
+}
+
+/* Secondary button styling */
+.secondary-btn {
+    padding: 8px 16px;
+    background-color: #fff;
+    color: #0078d4;
+    border: 1px solid #0078d4;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.secondary-btn:hover:not(:disabled) {
+    background-color: #0078d4;
+    color: #fff;
+}
+
+.secondary-btn:disabled {
+    background-color: #f3f3f3;
+    color: #c8c8c8;
+    border-color: #c8c8c8;
+    cursor: not-allowed;
+}
+
+/* Copy confirmation message */
+.confirmation {
+    color: #107c10;
+    font-size: 13px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    background-color: #dff6dd;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}

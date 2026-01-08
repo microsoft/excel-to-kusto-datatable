@@ -1,0 +1,37 @@
+{
+  "name": "excel-to-kusto-datatable",
+  "version": "1.0.0",
+  "description": "Excel add-in to convert selected cells to Kusto datatable syntax",
+  "main": "dist/taskpane.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development",
+    "start": "webpack serve --mode development",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "excel",
+    "kusto",
+    "datatable",
+    "office-addin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/office-js": "^1.0.377",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "jest": "^30.2.0",
+    "style-loader": "^4.0.0",
+    "ts-jest": "^29.4.6",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

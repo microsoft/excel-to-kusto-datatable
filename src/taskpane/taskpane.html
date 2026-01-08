@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kusto Datatable Converter</title>
+    
+    <!-- Office.js library - required for all Office Add-ins -->
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Kusto Datatable Converter</h1>
+        </header>
+        
+        <main>
+            <div class="options-section">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="first-row-header" checked>
+                    First row is header
+                </label>
+            </div>
+            
+            <button id="load-btn" class="primary-btn" disabled>Load Selection</button>
+            
+            <section id="column-mapping-section" class="hidden">
+                <h2>Column Types</h2>
+                <p class="hint">Adjust types as needed, then click Convert</p>
+                <div id="column-mappings"></div>
+                <button id="convert-btn" class="primary-btn">Convert to Datatable</button>
+            </section>
+            
+            <p id="status">Ready. Select cells and click Load Selection.</p>
+            
+            <section id="output-section" class="hidden">
+                <h2>Datatable Output</h2>
+                <pre id="output"></pre>
+                <button id="copy-btn" class="secondary-btn" disabled>Copy to Clipboard</button>
+                <p id="copy-confirmation" class="confirmation hidden">✓ Copied to clipboard!</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

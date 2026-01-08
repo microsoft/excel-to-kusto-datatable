@@ -1,6 +1,6 @@
 /**
  * datatableConverter.ts
- * 
+ *
  * Pure conversion logic for transforming Excel cell data into Kusto datatable syntax.
  * No Office.js dependencies - this module can be tested independently.
  */
@@ -8,21 +8,30 @@
 /**
  * Kusto data types supported by the converter
  */
-export type KustoDataType = "string" | "long" | "real" | "datetime" | "bool" | "guid" | "timespan" | "decimal" | "dynamic";
+export type KustoDataType =
+  | "string"
+  | "long"
+  | "real"
+  | "datetime"
+  | "bool"
+  | "guid"
+  | "timespan"
+  | "decimal"
+  | "dynamic";
 
 /**
  * All available Kusto data types for UI selection
  */
 export const KUSTO_DATA_TYPES: KustoDataType[] = [
   "string",
-  "long", 
+  "long",
   "real",
   "datetime",
   "bool",
   "guid",
   "timespan",
   "decimal",
-  "dynamic"
+  "dynamic",
 ];
 
 /**
@@ -39,7 +48,7 @@ export interface ColumnInfo {
 export interface ConversionOptions {
   /** If true, first row is treated as column headers. Default: true */
   firstRowIsHeader: boolean;
-  /** 
+  /**
    * Explicit type overrides for columns, keyed by column index.
    * If provided, these types will be used instead of inferred types.
    */
@@ -56,15 +65,12 @@ const DEFAULT_OPTIONS: ConversionOptions = {
 /**
  * Infers column information (names and types) from Excel data without converting.
  * Use this to display column mappings to the user before conversion.
- * 
+ *
  * @param data - 2D array of cell values from Excel
  * @param firstRowIsHeader - Whether the first row contains headers
  * @returns Array of ColumnInfo with inferred types
  */
-export function inferColumns(
-  data: unknown[][],
-  firstRowIsHeader: boolean = true
-): ColumnInfo[] {
+export function inferColumns(data: unknown[][], firstRowIsHeader: boolean = true): ColumnInfo[] {
   if (!data || data.length === 0) {
     return [];
   }
@@ -85,14 +91,14 @@ export function inferColumns(
 
 /**
  * Converts a 2D array of Excel cell values to Kusto datatable syntax
- * 
+ *
  * @param data - 2D array of cell values from Excel
  * @param options - Conversion options
  * @returns Kusto datatable syntax as a string
  */
 export function convertToDatatable(
   data: unknown[][],
-  options: Partial<ConversionOptions> = {}
+  options: Partial<ConversionOptions> = {},
 ): string {
   const opts = { ...DEFAULT_OPTIONS, ...options };
 
@@ -132,14 +138,14 @@ function generateDefaultHeaders(count: number): string[] {
 function inferColumnTypes(
   headers: unknown[],
   dataRows: unknown[][],
-  columnTypes?: Map<number, KustoDataType>
+  columnTypes?: Map<number, KustoDataType>,
 ): ColumnInfo[] {
   return headers.map((header, colIndex) => {
-    const columnValues = dataRows.map(row => row[colIndex]);
-    
+    const columnValues = dataRows.map((row) => row[colIndex]);
+
     // Use explicit type if provided, otherwise infer
     const type = columnTypes?.get(colIndex) ?? inferTypeFromValues(columnValues);
-    
+
     return {
       name: sanitizeColumnName(String(header ?? `Column${colIndex + 1}`)),
       type,
@@ -153,20 +159,20 @@ function inferColumnTypes(
 function sanitizeColumnName(name: string): string {
   // Trim whitespace
   let sanitized = name.trim();
-  
+
   // If empty, use a default
   if (!sanitized) {
     return "Column";
   }
-  
+
   // Replace spaces and invalid characters with underscores
   sanitized = sanitized.replace(/[^a-zA-Z0-9_]/g, "_");
-  
+
   // Ensure it doesn't start with a number
   if (/^[0-9]/.test(sanitized)) {
     sanitized = "_" + sanitized;
   }
-  
+
   return sanitized;
 }
 
@@ -247,7 +253,7 @@ function inferSingleValueType(value: unknown): KustoDataType {
   // Check if it's a string that might be a date or number
   if (typeof value === "string") {
     const trimmed = value.trim();
-    
+
     // Try parsing as a date first
     if (isDateString(trimmed)) {
       return "datetime";
@@ -283,7 +289,7 @@ function isDateString(value: string): boolean {
     // US format: 01/15/2024, 1/15/2024
     /^\d{1,2}\/\d{1,2}\/\d{2,4}$/,
     // European format: 15-01-2024, 15.01.2024
-    /^\d{1,2}[-\.]\d{1,2}[-\.]\d{2,4}$/,
+    /^\d{1,2}[-.](\d{1,2})[-.](\d{2,4})$/,
   ];
 
   for (const pattern of datePatterns) {
@@ -313,17 +319,15 @@ function buildDatatableString(columns: ColumnInfo[], dataRows: unknown[][]): str
   const lines: string[] = [];
 
   // Build schema declaration
-  const schemaItems = columns.map(col => `${col.name}:${col.type}`);
+  const schemaItems = columns.map((col) => `${col.name}:${col.type}`);
   lines.push(`datatable(${schemaItems.join(", ")})`);
   lines.push("[");
 
   // Build data rows
   for (let rowIndex = 0; rowIndex < dataRows.length; rowIndex++) {
     const row = dataRows[rowIndex];
-    const formattedValues = columns.map((col, colIndex) => 
-      formatValue(row[colIndex], col.type)
-    );
-    
+    const formattedValues = columns.map((col, colIndex) => formatValue(row[colIndex], col.type));
+
     const rowStr = "    " + formattedValues.join(", ");
     // Add comma after each row (including the last one, per Kusto syntax)
     lines.push(rowStr + ",");
@@ -526,8 +530,7 @@ function formatDynamic(value: unknown): string {
   }
   // For strings, check if it looks like JSON
   const str = String(value).trim();
-  if ((str.startsWith("{") && str.endsWith("}")) || 
-      (str.startsWith("[") && str.endsWith("]"))) {
+  if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
     return `dynamic(${str})`;
   }
   // Wrap non-JSON values as a dynamic string

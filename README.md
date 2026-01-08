@@ -2,11 +2,25 @@
 
 An Excel add-in that converts selected cells to Kusto datatable syntax.
 
+This add-in is not published to the Office Add-ins Store, so it won't appear when you browse for
+add-ins in Excel. Instead, you'll need to "sideload" it manually using a trusted catalog. This is a
+one-time setup process that takes just a few minutes. You do not need to run a local server because
+the files are hosted at
+[microsoft.github.io/excel-to-kusto-datatable](https://microsoft.github.io/excel-to-kusto-datatable/).
+
+Once sideloaded, the add-in works exactly like any other Excel add-in. It appears in the ribbon,
+persists across sessions, and can be used whenever you need it.
+
 ## Quick Start
 
 ### Sideloading the Add-in
 
-1. Download the [manifest.xml](https://microsoft.github.io/excel-to-kusto-datatable/manifest.xml) to your machine
+These instructions are for Windows, but if you have trouble or need other platforms (including
+Office on the web), see the official Microsoft documentation on
+[Sideloading Office Add-ins](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-office-add-ins-for-testing).
+
+1. Download the [manifest.xml](https://microsoft.github.io/excel-to-kusto-datatable/manifest.xml) to
+   your machine
 2. Create a network share folder and place the manifest file in it
 3. In Excel: **File → Options → Trust Center → Trust Center Settings**
 4. Go to **Trusted Add-in Catalogs** → Add the network share path (e.g., `\\localhost\ExcelAddins`)

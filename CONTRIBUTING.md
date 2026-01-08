@@ -45,10 +45,10 @@ npm test
 
 This project has two manifest files:
 
-| File | Purpose | URLs Point To |
-|------|---------|---------------|
-| `manifest.xml` | Production (for users) | `microsoft.github.io/excel-to-kusto-datatable/` |
-| `manifest.local.xml` | Development (for contributors) | `localhost:3000` |
+| File                 | Purpose                        | URLs Point To                                   |
+| -------------------- | ------------------------------ | ----------------------------------------------- |
+| `manifest.xml`       | Production (for users)         | `microsoft.github.io/excel-to-kusto-datatable/` |
+| `manifest.local.xml` | Development (for contributors) | `localhost:3000`                                |
 
 **To test locally:**
 
@@ -56,9 +56,11 @@ This project has two manifest files:
 2. Sideload **`manifest.local.xml`** into Excel (not `manifest.xml`)
 3. The add-in will appear as "Kusto Datatable (Local)" to distinguish it from the production version
 
-**Sideloading instructions:** https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-office-add-ins-for-testing
+**Sideloading instructions:**
+https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-office-add-ins-for-testing
 
-> **Note:** Always use `manifest.local.xml` for development. The production `manifest.xml` points to GitHub Pages and won't reflect your local changes.
+> **Note:** Always use `manifest.local.xml` for development. The production `manifest.xml` points to
+> GitHub Pages and won't reflect your local changes.
 
 ### Project Structure
 
@@ -263,8 +265,8 @@ Output files are generated in the `dist/` folder.
 
 ### "Content blocked - not signed by valid security certificate"
 
-The SSL certificate isn't trusted. Follow the [SSL Certificate Setup](#ssl-certificate-setup-windows)
-steps above, then restart Excel.
+The SSL certificate isn't trusted. Follow the
+[SSL Certificate Setup](#ssl-certificate-setup-windows) steps above, then restart Excel.
 
 ### Add-in doesn't appear in Shared Folder
 

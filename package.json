@@ -9,7 +9,12 @@
     "start": "webpack serve --mode development",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "spellcheck": "cspell \"**/*.{ts,md,html,json,yml,yaml}\" --no-progress",
+    "format": "prettier --write \"**/*.md\"",
+    "format:check": "prettier --check \"**/*.md\"",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
   },
   "keywords": [
     "excel",
@@ -20,16 +25,21 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/jest": "^30.0.0",
     "@types/office-js": "^1.0.377",
     "copy-webpack-plugin": "^12.0.2",
+    "cspell": "^9.4.0",
     "css-loader": "^7.1.2",
+    "eslint": "^9.39.2",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^30.2.0",
+    "prettier": "^3.7.4",
     "style-loader": "^4.0.0",
     "ts-jest": "^29.4.6",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
+    "typescript-eslint": "^8.52.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"

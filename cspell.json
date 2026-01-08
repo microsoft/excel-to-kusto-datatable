@@ -1,0 +1,40 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "kusto",
+    "datatable",
+    "addin",
+    "addins",
+    "taskpane",
+    "webpack",
+    "devserver",
+    "tsconfig",
+    "eslint",
+    "prettierrc",
+    "zizmor",
+    "sideload",
+    "sideloaded",
+    "sideloading",
+    "timespan",
+    "certutil",
+    "addstore",
+    "certmgr",
+    "opensource",
+    "LOCALAPPDATA"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "package-lock.json",
+    "*.min.js"
+  ],
+  "dictionaries": [
+    "typescript",
+    "node",
+    "html",
+    "css",
+    "npm"
+  ]
+}

@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-An Excel add-in that allows users to select cells and quickly convert them to Kusto datatable syntax. The tool prioritizes ease of use and clean, maintainable code suitable for open-source distribution.
+An Excel add-in that allows users to select cells and quickly convert them to Kusto datatable
+syntax. The tool prioritizes ease of use and clean, maintainable code suitable for open-source
+distribution.
 
 ---
 
@@ -21,25 +23,25 @@ An Excel add-in that allows users to select cells and quickly convert them to Ku
 
 ### Functional Requirements
 
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| F1 | User can select a range of cells in Excel | Must Have |
-| F2 | Convert selection to Kusto datatable syntax | Must Have |
-| F3 | Access conversion via ribbon button | Must Have |
-| F4 | Display result in task pane | Must Have |
-| F5 | Copy result to clipboard | Must Have |
-| F6 | Handle empty cells gracefully | Must Have |
-| F7 | Preserve data types where applicable | Must Have |
+| ID  | Requirement                                 | Priority  |
+| --- | ------------------------------------------- | --------- |
+| F1  | User can select a range of cells in Excel   | Must Have |
+| F2  | Convert selection to Kusto datatable syntax | Must Have |
+| F3  | Access conversion via ribbon button         | Must Have |
+| F4  | Display result in task pane                 | Must Have |
+| F5  | Copy result to clipboard                    | Must Have |
+| F6  | Handle empty cells gracefully               | Must Have |
+| F7  | Preserve data types where applicable        | Must Have |
 
 ### Non-Functional Requirements
 
-| ID | Requirement |
-|----|-------------|
-| NF1 | Written in TypeScript |
+| ID  | Requirement                                                  |
+| --- | ------------------------------------------------------------ |
+| NF1 | Written in TypeScript                                        |
 | NF2 | Compatible with Excel 2016+, Microsoft 365, and Excel Online |
-| NF3 | Hosted on GitHub Pages (free, no server maintenance) |
-| NF4 | Clean separation of concerns (but not over-engineered) |
-| NF5 | Meaningful inline comments without excess verbosity |
+| NF3 | Hosted on GitHub Pages (free, no server maintenance)         |
+| NF4 | Clean separation of concerns (but not over-engineered)       |
+| NF5 | Meaningful inline comments without excess verbosity          |
 
 ---
 
@@ -48,6 +50,7 @@ An Excel add-in that allows users to select cells and quickly convert them to Ku
 ### Add-in Technology: Office.js (Web Add-in)
 
 **Why Office.js:**
+
 - Cross-platform: Windows, Mac, and Excel Online
 - Free hosting via GitHub Pages
 - Auto-updates: push to repo → users get new version immediately
@@ -55,6 +58,7 @@ An Excel add-in that allows users to select cells and quickly convert them to Ku
 - Modern web stack (TypeScript, HTML, CSS)
 
 **Trade-offs:**
+
 - No right-click context menu support (ribbon only)
 - Task pane UI instead of popup dialog
 - Async/Promise-based API
@@ -103,13 +107,14 @@ excel-to-kusto-datatable/
 - **datatableConverter.ts**: Pure conversion logic, no Office.js dependencies, easily testable
 - **dist/**: Production build output, served by GitHub Pages
 
-This structure keeps things organized without over-abstracting. No frameworks like React/Angular - just vanilla TypeScript with clean separation where it makes sense.
+This structure keeps things organized without over-abstracting. No frameworks like React/Angular -
+just vanilla TypeScript with clean separation where it makes sense.
 
 ---
 
 ## Kusto Datatable Syntax
 
-*Document the expected output format here. Example:*
+_Document the expected output format here. Example:_
 
 ```
 datatable(Column1:string, Column2:real, Column3:datetime)
@@ -123,13 +128,14 @@ datatable(Column1:string, Column2:real, Column3:datetime)
 
 1. First row treated as headers by default (configurable via checkbox)
 2. Infer data types from cell values/formats:
-   - Whole numbers → `long`
-   - Decimal numbers → `real`
-   - Dates (string format) → `datetime`
-   - Everything else → `string`
+    - Whole numbers → `long`
+    - Decimal numbers → `real`
+    - Dates (string format) → `datetime`
+    - Everything else → `string`
 3. **Schema Mapping**: User can override inferred types before conversion
-   - All Kusto types supported: `string`, `long`, `real`, `datetime`, `bool`, `guid`, `timespan`, `decimal`, `dynamic`
-   - Useful for Excel serial dates (numbers) that should be `datetime`
+    - All Kusto types supported: `string`, `long`, `real`, `datetime`, `bool`, `guid`, `timespan`,
+      `decimal`, `dynamic`
+    - Useful for Excel serial dates (numbers) that should be `datetime`
 4. String values wrapped in double quotes
 5. Proper escaping for special characters
 6. Empty/null cells → typed nulls (e.g., `datetime(null)`, `long(null)`, `real(null)`, `""`)
@@ -186,11 +192,13 @@ datatable(Column1:string, Column2:real, Column3:datetime)
 ```
 
 **Two-Step Conversion Flow:**
+
 1. **Load Selection** - Reads Excel selection and infers column types
 2. **Schema Mapping** - User reviews/adjusts column types via dropdowns
 3. **Convert** - Generates datatable with user-specified types
 
 **UI Elements:**
+
 - Checkbox for "First row is header" (default: checked)
 - "Load Selection" button reads current Excel selection and shows schema
 - Column type dropdowns allow changing any column to any Kusto type
@@ -205,12 +213,14 @@ datatable(Column1:string, Column2:real, Column3:datetime)
 
 ### For Users (Installing the Add-in)
 
-📺 **Sideloading instructions**: https://learn.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins
+📺 **Sideloading instructions**:
+https://learn.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins
 
 **Quick Install Steps:**
 
 1. Download `manifest.xml` to a local folder (e.g., `C:\ExcelAddins\`)
-2. Right click on the folder and choose "Give access to > Specific people..." to share it on your network.
+2. Right click on the folder and choose "Give access to > Specific people..." to share it on your
+   network.
 3. Excel → File → Options → Trust Center → Trust Center Settings
 4. Trusted Add-in Catalogs → Add your network share path
 5. Restart Excel
@@ -219,7 +229,8 @@ datatable(Column1:string, Column2:real, Column3:datetime)
 ### For Developers (Building from Source)
 
 **Prerequisites:**
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 - Git
 
@@ -262,6 +273,7 @@ npm run dev
 ## Development Phases
 
 ### Phase 1: Hello World ✅
+
 **Goal**: Minimal add-in running in Excel with local dev server
 
 - [x] Initialize project (npm init, install dependencies)
@@ -270,7 +282,8 @@ npm run dev
 - [x] Configure webpack and dev server with HTTPS
 - [x] Add ribbon button to Data tab
 
-**Verify**: 
+**Verify**:
+
 1. ✅ Run `npm run dev` → dev server starts at https://localhost:3000
 2. ✅ Sideload manifest into Excel
 3. ✅ Click button in Data tab → task pane opens showing "Hello World"
@@ -278,6 +291,7 @@ npm run dev
 ---
 
 ### Phase 2: Read Selection ✅
+
 **Goal**: Read selected cells and display raw data in task pane
 
 - [x] Add "Convert" button to task pane
@@ -285,6 +299,7 @@ npm run dev
 - [x] Display cell values as JSON or plain text in task pane
 
 **Verify**:
+
 1. Select some cells in Excel (e.g., A1:C3)
 2. Click "Convert" in task pane
 3. Task pane shows the raw cell values from your selection
@@ -292,6 +307,7 @@ npm run dev
 ---
 
 ### Phase 3: Core Conversion ✅
+
 **Goal**: Convert selection to proper Kusto datatable syntax
 
 - [x] Create datatableConverter.ts with conversion logic
@@ -301,6 +317,7 @@ npm run dev
 - [x] Unit tests for converter (Jest)
 
 **Verify**:
+
 1. Select cells with headers and mixed data types
 2. Click "Convert" → output shows valid Kusto datatable syntax
 3. Run unit tests → all pass (`npm test`)
@@ -308,6 +325,7 @@ npm run dev
 ---
 
 ### Phase 4: Polish UI ✅
+
 **Goal**: Complete task pane with all features
 
 - [x] Add "First row is header" checkbox (default checked)
@@ -315,10 +333,12 @@ npm run dev
 - [x] Add "Copy to Clipboard" button with confirmation
 - [x] Error handling with user-friendly messages
 - [x] Schema mapping UI - show inferred column types with dropdown overrides
-- [x] Support all Kusto data types (string, long, real, datetime, bool, guid, timespan, decimal, dynamic)
+- [x] Support all Kusto data types (string, long, real, datetime, bool, guid, timespan, decimal,
+      dynamic)
 - [x] Two-step flow: Load Selection → Adjust Types → Convert
 
 **Verify**:
+
 1. Toggle checkbox → reloads and re-infers column types
 2. Change column type dropdown → Convert uses new type
 3. Click "Copy to Clipboard" → paste into text editor shows correct output
@@ -327,6 +347,7 @@ npm run dev
 ---
 
 ### Phase 5: GitHub Deployment
+
 **Goal**: Live add-in hosted on GitHub Pages
 
 - [x] Configure GitHub Pages on repository
@@ -336,13 +357,13 @@ npm run dev
 - [x] Test fresh install on different machine
 
 **Verify**:
+
 1. Push to main → GitHub Actions builds successfully
 2. Visit https://yourusername.github.io/repo → files are served
 3. Fresh Excel install with production manifest → add-in works
 4. Test on Excel Online → add-in works
 
 ---
-
 
 ## Future Considerations (Out of Scope for v1)
 
@@ -359,4 +380,4 @@ MIT License (recommended for open-source simplicity)
 
 ---
 
-*Last Updated: January 7, 2026*
+_Last Updated: January 7, 2026_

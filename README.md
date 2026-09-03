@@ -35,10 +35,15 @@ Office on the web), see the official Microsoft documentation on
 
 ### Usage
 
-1. Select cells in Excel
+1. Select cells in Excel. To combine non-adjacent columns, hold **Ctrl** on Windows or **Command**
+   on Mac while selecting ranges that cover the same rows.
 2. Click the **"To Datatable"** button in the **Data** tab
 3. The task pane opens with the Kusto datatable output
 4. Copy the output to clipboard and paste into a Kusto query
+
+Non-adjacent selections are combined from left to right and must have matching start and end rows.
+This feature requires ExcelApi 1.9. Older Excel versions can continue to convert one contiguous
+range.
 
 ## Contributing
 

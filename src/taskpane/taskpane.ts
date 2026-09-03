@@ -6,11 +6,18 @@ import {
   KustoDataType,
   KUSTO_DATA_TYPES,
 } from "../services/datatableConverter";
+import { combineSelectedRangeAreas, SelectedRangeArea } from "../services/selectionCombiner";
 
 // Store state for the current conversion
 let currentData: unknown[][] = [];
 let currentColumns: ColumnInfo[] = [];
 let lastConvertedResult: string = "";
+let currentSelectionAreaCount = 0;
+
+interface LoadedSelection {
+  values: unknown[][];
+  areaCount: number;
+}
 
 // Initialize when Office.js is ready
 Office.onReady((info) => {
@@ -61,7 +68,9 @@ async function handleLoadClick(): Promise<void> {
     updateStatus("Loading selection...");
     hideOutput();
 
-    currentData = await readSelectedRange();
+    const selection = await readSelectedRanges();
+    currentData = selection.values;
+    currentSelectionAreaCount = selection.areaCount;
     const firstRowIsHeader = headerCheckbox?.checked ?? true;
 
     // Validate we have data
@@ -85,8 +94,10 @@ async function handleLoadClick(): Promise<void> {
     displayColumnMappings(currentColumns);
 
     const rowCount = firstRowIsHeader ? currentData.length - 1 : currentData.length;
+    const areaSummary =
+      currentSelectionAreaCount > 1 ? ` from ${currentSelectionAreaCount} selected areas` : "";
     updateStatus(
-      `Loaded ${currentColumns.length} column(s) and ${rowCount} data row(s). Adjust types and click Convert.`,
+      `Loaded ${currentColumns.length} column(s) and ${rowCount} data row(s)${areaSummary}. Adjust types and click Convert.`,
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error occurred";
@@ -94,6 +105,7 @@ async function handleLoadClick(): Promise<void> {
     hideColumnMappings();
     currentData = [];
     currentColumns = [];
+    currentSelectionAreaCount = 0;
   } finally {
     loadBtn.disabled = false;
   }
@@ -261,23 +273,70 @@ async function handleHeaderCheckboxChange(): Promise<void> {
 }
 
 /**
- * Reads the currently selected range in Excel and returns the cell values
- * @returns A 2D array of cell values
+ * Reads the currently selected ranges in Excel and returns one row-aligned data matrix.
  */
-async function readSelectedRange(): Promise<unknown[][]> {
+async function readSelectedRanges(): Promise<LoadedSelection> {
+  if (Office.context.requirements.isSetSupported("ExcelApi", "1.9")) {
+    return readSelectedRangeAreas();
+  }
+
+  return readSingleSelectedRange();
+}
+
+async function readSelectedRangeAreas(): Promise<LoadedSelection> {
   return Excel.run(async (context) => {
-    // Get the currently selected range
-    const range = context.workbook.getSelectedRange();
+    const selectedRanges = context.workbook.getSelectedRanges();
+    const areas = selectedRanges.areas;
 
-    // Load the values property
-    range.load("values");
-
-    // Execute the request
+    areas.load("values,rowIndex,columnIndex,rowCount,columnCount");
     await context.sync();
 
-    // Return the 2D array of values
-    return range.values;
+    const selectedAreas: SelectedRangeArea[] = areas.items.map((area) => ({
+      values: area.values,
+      rowIndex: area.rowIndex,
+      columnIndex: area.columnIndex,
+      rowCount: area.rowCount,
+      columnCount: area.columnCount,
+    }));
+
+    return {
+      values: combineSelectedRangeAreas(selectedAreas),
+      areaCount: selectedAreas.length,
+    };
   });
+}
+
+async function readSingleSelectedRange(): Promise<LoadedSelection> {
+  try {
+    return await Excel.run(async (context) => {
+      const range = context.workbook.getSelectedRange();
+
+      range.load("values");
+      await context.sync();
+
+      return {
+        values: range.values,
+        areaCount: 1,
+      };
+    });
+  } catch (error) {
+    if (getOfficeErrorCode(error) === "InvalidSelection") {
+      throw new Error(
+        "This version of Excel can only load one contiguous range. Select a single range or use an Excel version that supports ExcelApi 1.9.",
+      );
+    }
+
+    throw error;
+  }
+}
+
+function getOfficeErrorCode(error: unknown): string | undefined {
+  if (typeof error !== "object" || error === null || !("code" in error)) {
+    return undefined;
+  }
+
+  const code = (error as { code?: unknown }).code;
+  return typeof code === "string" ? code : undefined;
 }
 
 /**

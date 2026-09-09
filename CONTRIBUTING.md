@@ -261,6 +261,37 @@ npm run build
 
 Output files are generated in the `dist/` folder.
 
+### CI and Production Deployment
+
+The **CI and Deploy to GitHub Pages** workflow runs lint, spell check, Zizmor, unit tests, and a
+production build for pull requests and pushes to `main`. Pull requests never upload a Pages
+artifact or deploy. Zizmor findings fail its check and appear in logs and workflow annotations;
+this workflow no longer uploads findings to the repository's Security tab.
+
+GitHub Pages hosts the production Excel add-in, not just documentation. After a push to `main`,
+deployment requires all four checks and the build to succeed. The workflow publishes the same
+run's `dist/` artifact, containing the task pane, production manifest, and icons. A failed workflow
+leaves the previously published add-in available.
+
+Only the deployment job receives Pages deployment permissions. Main-branch runs are serialized
+without cancelling active deployments; newer PR runs can cancel older runs of the same PR.
+GitHub may replace pending runs, so this is not a guarantee that every commit is published.
+
+#### Manual Deployment
+
+In **Actions**, select **CI and Deploy to GitHub Pages**, then **Run workflow** with branch `main`.
+By default, all checks must pass. Manual runs on other branches are rejected.
+
+For an exceptional deployment that must skip checks, enable `skip_checks` and enter a
+`bypass_reason` containing more than whitespace. This skips lint, spell check, Zizmor, and unit
+tests. A successful production build and artifact upload are still mandatory, and cancellation
+or the `github-pages` environment restrictions cannot be bypassed. The build job's run summary
+records the actor, commit, bypass flag, and reason, with a warning when checks are skipped.
+
+Deployment gating is separate from PR merge protection. The main-branch ruleset requires
+`lint`, `spellcheck`, `Run zizmor`, `test`, and `build`, alongside its existing review and branch
+protections. Do not require `deploy` on PRs, where deployment is intentionally skipped.
+
 ## Troubleshooting
 
 ### "Content blocked - not signed by valid security certificate"

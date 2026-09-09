@@ -288,10 +288,9 @@ tests. A successful production build and artifact upload are still mandatory, an
 or the `github-pages` environment restrictions cannot be bypassed. The build job's run summary
 records the actor, commit, bypass flag, and reason, with a warning when checks are skipped.
 
-Deployment gating is separate from PR merge protection. The main-branch ruleset retains the
-required `lint`, `spellcheck`, and `Run zizmor` checks. During rollout, add `test` and `build` as
-required checks after their successful results are visible, preserving all existing review and
-branch protections. Do not require `deploy` on PRs, where deployment is intentionally skipped.
+Deployment gating is separate from PR merge protection. The main-branch ruleset requires
+`lint`, `spellcheck`, `Run zizmor`, `test`, and `build`, alongside its existing review and branch
+protections. Do not require `deploy` on PRs, where deployment is intentionally skipped.
 
 ## Troubleshooting
 
